@@ -1,0 +1,5 @@
+#ReadMe
+Trò chơi DT có logic choi giống game memory, khi ở level có số ảnh là số chẵn, bạn chọn hai ảnh giống nhau thì nó sẽ biến mất và tăng điểm,
+nếu khác nhau thì số lượt chơi sẽ giảm đi. Còn nếu số ảnh là số lẻ thì sẽ có 1 ảnh đặc biệt và bạn chỉ được phép chọn nó khi còn duy nhất ảnh
+đó để chuyển xang level mới. Khi số lượt giảm về 0 bạn sẽ thua.
+Hãy thử để xem khả năng ghi nhớ của bạn đến đâu :>.
