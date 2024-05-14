@@ -16,16 +16,16 @@ private:
     SDL_Rect rectScore;
     TTF_Font* font;
 
+
 public:
     Score(SDL_Color color, int level, int score, int timeClick, int x, int y, std::string noti);
     ~Score();
 
     void update(int level, int score, int timeClick);
     void render(SDL_Renderer* renderer);
-
     SDL_Rect getRect() const;
     SDL_Rect getRectScore();
     std::string getNoti();
 };
 
-#endif // SCORE_H
+#endif
