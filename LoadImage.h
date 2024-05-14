@@ -26,4 +26,4 @@ public:
     void free();
 };
 
-#endif // IMAGE_H
+#endif 
