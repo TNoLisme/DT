@@ -13,16 +13,13 @@ private:
     SDL_Rect recBd;
     SDL_Color color;
     SDL_Color colorBd;
-    SDL_Texture* iconTexture; // Texture của icon
+    SDL_Texture* iconTexture;
 
 public:
     Icon(int x, int y, int hei, std::string image);
-    ~Icon(); // Hàm hủy
+    ~Icon(); 
 
-    // Hàm vẽ icon lên renderer
     void draw(SDL_Renderer* renderer);
-
-    // Getter
     std::vector<int> getPos();
     int getHei();
     SDL_Rect getRec();
@@ -37,7 +34,7 @@ Icon::Icon(int x, int y, int hei, std::string image) : x(x), y(y), hei(hei), ima
     recBd = { x - 2, y - 2, hei + 4, hei + 4 };
     color = { 189, 195, 199 };
     colorBd = { 229, 80, 57 };
-    iconTexture = nullptr; // Khởi tạo texture là nullptr
+    iconTexture = nullptr;
 }
 
 Icon::~Icon() {
@@ -47,14 +44,12 @@ Icon::~Icon() {
 }
 
 void Icon::draw(SDL_Renderer* renderer) {
-    // Nếu texture chưa được tạo, thì tạo mới từ file
     if (iconTexture == nullptr) {
         SDL_Surface* iconSurface = IMG_Load(image.c_str());
         iconTexture = SDL_CreateTextureFromSurface(renderer, iconSurface);
         SDL_FreeSurface(iconSurface);
     }
 
-    // Vẽ texture lên renderer
     SDL_Rect iconRect = { x, y, hei, hei };
     SDL_RenderCopy(renderer, iconTexture, nullptr, &iconRect);
 }
