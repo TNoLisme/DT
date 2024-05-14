@@ -2,7 +2,6 @@
 #include <iostream>
 
 Image::Image() : mTexture(nullptr), mWidth(0), mHeight(0) {}
-
 Image::~Image() {
     free();
 }
@@ -42,7 +41,6 @@ bool Image::loadTexture(const std::string& path, SDL_Renderer* renderer) {
 
     mWidth = loadedSurface->w;
     mHeight = loadedSurface->h;
-
     SDL_FreeSurface(loadedSurface);
 
     return true;
