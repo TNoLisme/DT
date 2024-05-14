@@ -30,6 +30,9 @@ public:
     SDL_Color getColor();
     SDL_Color getColorBd();
     std::string getImage();
+    bool operator==(const Icon& other) const {
+    return x == other.x && y == other.y && hei == other.hei && image == other.image;
+    }
 };
 
-#endif // ICON_H
+#endif 
