@@ -55,6 +55,13 @@ extern std::string backgroundImg;
 extern std::string startImg;
 extern std::string choose09;
 
+extern std::string winMusic;
+extern std::string lossMusic;
+extern std::string playMusic;
+extern std::string startMusic;
+extern std::string chooseTrue;
+extern std::string chooseFalse; 
+
 extern Image backgroundImage;
 extern Image choosedNum;
 extern Image winImage;
