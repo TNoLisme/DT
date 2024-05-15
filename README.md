@@ -11,7 +11,7 @@
     các mục từ 0 đến 9 tương ứng với từng chủ đề khác nhau của ảnh. Tùy vào sở thích của bạn, bạn sẽ bấm số theo chủ đề
     bạn muốn. Các chủ đề có hiện tại:
     #
-    0 - Tất cả các ảnh của các chủ đề từ 1 đến 0.
+    0 - Tất cả các ảnh của các chủ đề từ 1 đến 9.
     #
     1 - Chủ đề về tựa game Liên Quân Mobile.
     #
@@ -27,12 +27,15 @@
     #
     7 - Chủ đề về các hình ảnh 4K.
     #
-    8 - Chủ đề về Doraemon.
+    8 - Chủ đề về Bảng chữ cái
     #
     9 - Chủ đề về 12 con giáp.
     #
     Sau khi bạn chọn chủ đề thì trò chơi sẽ bắt đầu.
-  - Game có số level nhất định và với mỗi level có số ảnh tăng dần, là bình phương của level.
+  - Game có số level nhất định và với mỗi level có số ảnh tăng dần, là bình phương của level. Vì bình phương của level có thể là số lẻ mà game này là chọn các ảnh giống nhau nên sẽ có 1 ảnh chỉ có 1, nó được gọi là ảnh đặc biệt. Và đương nhiên ảnh này là hoàn toàn ngẫu nhiên đối với từng chủ đề và từng level. Đây chắc chắn là yếu tố gây nhiễu tạo thêm phần khó khắn đối với người chơi. Và khi level của bạn là số chắn thì sẽ có ảnh đặc biệt ngẫu nhiên đó. Hãy thử xem khả năng ghi nhớ của bạn tới đâu!
+     #
+    !!! LƯU Ý: Đừng có tưởng game về trí nhớ sẽ không có chiến thuật nha. Hãy cẩn thận vì số lược Click là có hạn và khi nó về 0 thì bạn sẽ thua đó.
+    #
   - Cách chơi: Người chơi bấm chuột vào từng ảnh và ảnh sẽ hiện lên. Nếu hai ảnh hiện lên là giống nhau thì nó sẽ biến
     mất và điểm "Score" của bạn sẽ tăng thêm 5. Còn nếu hai ảnh đó khác nhau thì số "Click" của bạn sẽ bì giảm đi 1.
     Game sẽ kết thúc khi bạn chơi đến level nhất định hoặc khi số lượt chơi Click của bạn về 0.
