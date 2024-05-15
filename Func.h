@@ -7,6 +7,7 @@
 #include <string>
 #include <sstream> 
 #include <fstream>
+#include <random>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_image.h>
@@ -52,6 +53,7 @@ extern std::string backside;
 extern std::string GOver;
 extern std::string backgroundImg;
 extern std::string startImg;
+extern std::string choose09;
 
 extern Image backgroundImage;
 extern Image choosedNum;
@@ -98,7 +100,7 @@ void playSound(const std::string& soundFile, int repeatCount);
 void handleStartButtonClick(SDL_Event event, bool &start, bool &choosenum) ;
 void renderStart();
 void renderImagechoose();
-void handleKeyPress(SDL_Keycode key, std::vector<std::string>& chosenImage, bool& chooseNum, bool& play, SDL_Renderer* renderer, std::vector<Icon>& arrayIcon, int level);
+void handleKeyPress(SDL_Keycode key, std::vector<std::string>& chosenImage, bool& chooseNum, bool& play, SDL_Renderer* renderer, std::vector<Icon>& arrayIcon, int level, std::string &special);
 void handleNormalIconClick(std::vector<Icon>& arrayIcon, std::vector<Icon>& arrayIconChoosed, int& timeClick, SDL_Renderer* renderer);
 void handleGameRunningEvent(SDL_Event& event, std::vector<Icon>& arrayIcon, std::vector<Icon>& arrayIconChoosed, int& timeClick, int& level, int& score, SDL_Renderer* renderer, bool& gameOver, bool& win);
 void handleRestartLoss(int& level, int& score, int& timeClick, std::vector<Icon>& arrayIcon, std::vector<Icon>& arrayIconChoosed, SDL_Renderer* renderer, bool& gameOver);
@@ -106,5 +108,6 @@ void handleRestartWin(SDL_Keycode key, bool& running, int& level, int& score, in
 void drawIcon(SDL_Renderer* renderer);
 void renderScore(int score, SDL_Renderer* renderer);
 void renderWin();
+void selectSpecial(std::vector<std::string>& image, std::string& special);
 
 #endif
