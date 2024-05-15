@@ -14,7 +14,7 @@ bool isWin = false;
 int wigWin = 750;
 int heiWin = 800;
 int level = 1;
-int levelwin = 3;
+int levelwin = 5;
 int score = 0;
 int borderSpace = static_cast<int>(wigWin * 0.1);
 int iconSpace = 12;
@@ -31,11 +31,12 @@ SDL_Color colorBg = {52, 73, 94};
 std::vector<Icon> arrayIcon;
 std::vector<Icon> arrayIconChoosed;
 std::vector<int> arrNum;
-std::string special = "image/aot.jpg";
-std::string backside = "image/st.jpg";
+std::string special;
+std::string backside = "image/backside.jpg";
 std::string GOver = "image/loss.jpg";
-std::string backgroundImg = "image/st.jpg";
+std::string backgroundImg = "image/start.jpg";
 std::string winImg = "image/playwin.jpg";
+std::string choose09 = "image/number.jpg"; 
 
 Image backgroundImage;
 Image choosedNum;
@@ -101,7 +102,7 @@ bool init(SDL_Window*& window, SDL_Renderer*& renderer) {
         return false;
     }
 
-    font = TTF_OpenFont("image/game.ttf", 24);
+    font = TTF_OpenFont("image/game.ttf", 36);
     if (!font) {
         //cout << "Failed to load font! SDL_ttf Error: " << TTF_GetError() << endl;
         return false;
@@ -166,6 +167,7 @@ void makeArrNum(int num) {
         arrNum.push_back(-1);
     }
 
+
 }
 void makeArrayIcon(SDL_Renderer* renderer, vector<Icon>& arrayIcon, int level) {
     arrayIcon.clear();
@@ -194,7 +196,7 @@ void choosed(SDL_Renderer* renderer, const string& image, int x, int y, int hei)
 
 void makeScore(int level, SDL_Renderer* renderer) {
    scoreRender = Score(colorBg, level, score, timeClick, wigWin, heiWin, "Level: " + std::to_string(level) + "     " + "Score: " + std::to_string(score) + "     " + "Click: " + std::to_string(timeClick));
-   SDL_Surface* notiSurface = TTF_RenderText_Solid(font, scoreRender.getNoti().c_str(), {52, 152, 219});
+   SDL_Surface* notiSurface = TTF_RenderText_Solid(font, scoreRender.getNoti().c_str(), {255,255,255});
    
    int textWidth = notiSurface->w;
    int textHeight = notiSurface->h;
@@ -274,16 +276,17 @@ void renderStart(){
 }
 
 void renderImagechoose(){
-    choosedNum.loadTexture("image/chooseNumber.jpg", renderer);
+    choosedNum.loadTexture(choose09, renderer);
     choosedNum.render(0, 0, renderer);
     SDL_RenderPresent(renderer);
 }
 
-void handleKeyPress(SDL_Keycode key, std::vector<std::string>& chosenImage, bool& chooseNum, bool& play, SDL_Renderer* renderer, std::vector<Icon>& arrayIcon, int level) {
+void handleKeyPress(SDL_Keycode key, std::vector<std::string>& chosenImage, bool& chooseNum, bool& play, SDL_Renderer* renderer, std::vector<Icon>& arrayIcon, int level, std::string &special) {
 
     std::vector<std::vector<std::string>> imageList = {image0, image1, image2, image3, image4, image5, image6, image7, image8, image9};
     int index = key - SDLK_0;
     chosenImage = imageList[index];
+    selectSpecial(chosenImage, special);
     chooseNum = false;
     play = true;
     makeArrNum((level + 1) * (level + 1)); 
@@ -320,8 +323,9 @@ void handleGameRunningEvent(SDL_Event& event, std::vector<Icon>& arrayIcon, std:
                             makeArrayIcon(renderer, arrayIcon, level);
                             timeClick = static_cast<int>((level + 1) * (level + 1 ) * (2.0 / 3));
                         }
+                    }else{
+                        arrayIconChoosed.push_back(i);
                     }
-                    arrayIconChoosed.push_back(i);
                     if (arrayIconChoosed.size() == 2) {
                         timeClick--;
                         choosed(renderer, i.getImage(), i.getPos()[0], i.getPos()[1], i.getHei());
@@ -599,4 +603,11 @@ void read(const string path, vector<string> &image0,vector<string> &image1, vect
         image9.erase(image9.begin());
     }
     else cout<<"NOT OPEN";
+}
+void selectSpecial(std::vector<std::string>& image, std::string& special){
+    
+    std::srand(time(0));
+    int randomIndex = std::rand() % image.size();
+    special = image[randomIndex];
+    image.erase(image.begin() + randomIndex);
 }
