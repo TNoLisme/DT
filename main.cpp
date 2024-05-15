@@ -33,7 +33,7 @@ int main(int argc, char* argv[]) {
                     if (event.type == SDL_KEYDOWN) {
                         SDL_Keycode keyPressed = event.key.keysym.sym;
                         if (keyPressed >= SDLK_0 && keyPressed <= SDLK_9) {
-                            handleKeyPress(keyPressed, image, choosenum, play, renderer, arrayIcon, level);
+                            handleKeyPress(keyPressed, image, choosenum, play, renderer, arrayIcon, level,special);
                         }
                     }
                 }
