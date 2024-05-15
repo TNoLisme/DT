@@ -38,6 +38,13 @@ std::string backgroundImg = "image/start.jpg";
 std::string winImg = "image/playwin.jpg";
 std::string choose09 = "image/number.jpg"; 
 
+std::string winMusic = "music/win.mp3";
+std::string lossMusic = "music/loss.mp3";
+std::string playMusic = "music/playgame.mp3";
+std::string startMusic = "music/start.mp3";
+std::string chooseTrue = "music/choosetrue.mp3";
+std::string chooseFalse = "music/choosefalse.mp3";
+
 Image backgroundImage;
 Image choosedNum;
 Image winImage;
@@ -112,7 +119,7 @@ bool init(SDL_Window*& window, SDL_Renderer*& renderer) {
 	    cout<<"SDL_mixer could not initialize! SDL_mixer Error: "<<Mix_GetError()<<endl;
 		return false;
 	}
-    gMusic = Mix_LoadMUS( "music/start.mp3" );
+    gMusic = Mix_LoadMUS( "music/start.mp3");
 	if( gMusic == NULL )
 	{
 		cout << "Failed to load background texture image!" << Mix_GetError()<< endl;
@@ -166,6 +173,8 @@ void makeArrNum(int num) {
     if (arrNum.size() < num) {
         arrNum.push_back(-1);
     }
+    // for(int i=0;i<arrNum.size();i++) cout<<arrNum[i]<<" ";
+    // cout<<endl;
 
 
 }
@@ -183,6 +192,7 @@ void makeArrayIcon(SDL_Renderer* renderer, vector<Icon>& arrayIcon, int level) {
         }
         arrNum.erase(arrNum.begin() + num);
     }
+    // for(int i=0;i<image.size();i++) cout<<i<<" "<<image[i]<<endl;
 }
 
 void choosed(SDL_Renderer* renderer, const string& image, int x, int y, int hei) {
@@ -227,7 +237,7 @@ void cleanup(SDL_Window* window, SDL_Renderer* renderer) {
 }
 void playSound(const std::string& soundFile, int repeatCount) {
     
-    if (soundFile == "music/playgame.mp3") {
+    if (soundFile == playMusic) {
         if (!start && choosenum && !gameOver) {
             
             Mix_Music* music = Mix_LoadMUS(soundFile.c_str());
@@ -238,7 +248,7 @@ void playSound(const std::string& soundFile, int repeatCount) {
             Mix_PlayMusic(music, repeatCount);
             isPlayingMusicGame = true; 
         }
-    } else if (soundFile == "music/loss.mp3") {
+    } else if (soundFile == lossMusic) {
         Mix_Music* music = Mix_LoadMUS(soundFile.c_str());
         if (!music) {
             std::cout << "Failed to load music file: " << soundFile << "! SDL_mixer Error: " << Mix_GetError() << std::endl;
@@ -265,7 +275,7 @@ void handleStartButtonClick(SDL_Event event, bool &start, bool &choosenum) {
         mouseY >= heiWin / 3 && mouseY <= heiWin / 3 + heiWin / 3) {
         start = false;
         choosenum = true;
-        playSound("music/playgame.mp3", -1);
+        playSound(playMusic, -1);
     }
 }
 
@@ -318,10 +328,11 @@ void handleGameRunningEvent(SDL_Event& event, std::vector<Icon>& arrayIcon, std:
                         else{
                             arrNum.clear();
                             arrayIconChoosed.clear();
+
                             arrayIcon.clear();
                             makeArrNum((level + 1) * (level + 1)); 
                             makeArrayIcon(renderer, arrayIcon, level);
-                            timeClick = static_cast<int>((level + 1) * (level + 1 ) * (2.0 / 3));
+                            timeClick = static_cast<int>(((level + 1) * (level + 1 ) +1)/2);
                         }
                     }else{
                         arrayIconChoosed.push_back(i);
@@ -352,7 +363,7 @@ void handleGameRunningEvent(SDL_Event& event, std::vector<Icon>& arrayIcon, std:
             arrayIcon.clear();
             makeArrNum((level + 1) * (level + 1)); 
             makeArrayIcon(renderer, arrayIcon, level);
-            timeClick = static_cast<int>((level + 1) * (level + 1 ) * (2.0 / 3));
+            timeClick = static_cast<int>(((level + 1) * (level + 1 ) +1)/2);
         }
     }
     if(!win){
@@ -361,7 +372,7 @@ void handleGameRunningEvent(SDL_Event& event, std::vector<Icon>& arrayIcon, std:
             if (isPlayingMusicGame) {
                 Mix_HaltMusic();
                 isPlayingMusicGame = false;
-                playSound("music/loss.mp3", 1);
+                playSound(lossMusic, 1);
             }
         }
 
@@ -437,7 +448,7 @@ void handleNormalIconClick(std::vector<Icon>& arrayIcon, std::vector<Icon>& arra
                     arrayIcon.erase(remove(arrayIcon.begin(), arrayIcon.end(), arrayIconChoosed[0]), arrayIcon.end());
                     arrayIcon.erase(remove(arrayIcon.begin(), arrayIcon.end(), arrayIconChoosed[1]), arrayIcon.end());
                     arrayIconChoosed.clear();
-                    playSound("music/choosetrue.mp3",1);
+                    playSound(chooseTrue,1);
                     score += 5;
                     if (arrayIcon.empty()) { 
                         level++; 
@@ -450,13 +461,13 @@ void handleNormalIconClick(std::vector<Icon>& arrayIcon, std::vector<Icon>& arra
                             arrayIcon.clear();
                             makeArrNum((level + 1) * (level + 1)); 
                             makeArrayIcon(renderer, arrayIcon, level);
-                            timeClick = static_cast<int>((level + 1) * (level + 1 ) * (2.0 / 3));
+                            timeClick = static_cast<int>(((level + 1) * (level + 1 ) +1)/2);
                         }
                     }
                 } else {
                     arrayIconChoosed.clear();
                     timeClick--;
-                    playSound("music/choosefalse.mp3",1);
+                    playSound(chooseFalse,1);
                 }
             }
         }
@@ -476,7 +487,7 @@ void handleRestartLoss(int& level, int& score, int& timeClick, std::vector<Icon>
         Mix_HaltMusic(); 
         isPlayingGameOver = false; 
     }  
-    playSound("music/playgame.mp3", -1);
+    playSound(playMusic, -1);
 }
 void handleRestartWin(SDL_Keycode key, bool& running, int& level, int& score, int& timeClick,
                     bool& choosenum, bool& play, bool& win, bool& isWin, bool& isPlayingGameOver) {
@@ -495,7 +506,7 @@ void handleRestartWin(SDL_Keycode key, bool& running, int& level, int& score, in
             Mix_HaltMusic();
             isPlayingGameOver = false;
         }
-        playSound("music/playgame.mp3", -1);
+        playSound(playMusic, -1);
     } else if (key == SDLK_SPACE) {
         running = false;
     }
@@ -526,7 +537,7 @@ void renderWin(){
         Mix_HaltMusic();
         isPlayingMusicGame = false;
     }
-    playSound("music/win.mp3", 1);
+    playSound(winMusic, 1);
     winImage.loadTexture(winImg,renderer);
     winImage.render(0,0,renderer);
     SDL_RenderPresent(renderer);
