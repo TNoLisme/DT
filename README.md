@@ -31,7 +31,16 @@
     #
     9 - Chủ đề về 12 con giáp.
     #
-    Sau khi bạn chọn chủ đề thì trò chơi sẽ bắt đầu.
+    Sau khi bạn chọn chủ đề thì trò chơi sẽ dẫn bạn tới chọn chế độ chơi với ba cấp độ:
+    #
+        +) Dễ (Easy)
+    #
+        +) Trung bình (Medium)
+    #
+        +) Khó (Hard)
+    #
+    Với mỗi cấp độ sẽ có số level và số lượt chơi cuar từng level khác nhau. Và đương nhiên sẽ là số level tăng và số lượt chơi mỗi level giảm.
+    Hãy thử sức với từng cấp độ xem khả năng phán đoán và may mắn của bạn đến đâu.
   - Game có số level nhất định và với mỗi level có số ảnh tăng dần, là bình phương của level. Vì bình phương của level có thể là số lẻ mà game này là chọn các ảnh giống nhau nên sẽ có 1 ảnh chỉ có 1, nó được gọi là ảnh đặc biệt. Và đương nhiên ảnh này là hoàn toàn ngẫu nhiên đối với từng chủ đề và từng level. Đây chắc chắn là yếu tố gây nhiễu tạo thêm phần khó khắn đối với người chơi. Và khi level của bạn là số chắn thì sẽ có ảnh đặc biệt ngẫu nhiên đó. Hãy thử xem khả năng ghi nhớ của bạn tới đâu!
      #
     !!! LƯU Ý: Đừng có tưởng game về trí nhớ sẽ không có chiến thuật nha. Hãy cẩn thận vì số lược Click là có hạn và khi nó về 0 thì bạn sẽ thua đó.
