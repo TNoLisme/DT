@@ -10,16 +10,18 @@ bool isPlayingMusicGame = false;
 bool isPlayingGameOver = false;
 bool win = false;
 bool isWin = false;
+bool dokho123 = false;
 
 int wigWin = 750;
 int heiWin = 800;
 int level = 1;
-int levelwin = 5;
+int levelwin = 4;
 int score = 0;
 int borderSpace = static_cast<int>(wigWin * 0.1);
 int iconSpace = 12;
 int fps = 60;
 int timeClick = 2;
+int clickDiff = 0;
 
 SDL_Window* window = NULL;
 SDL_Renderer* renderer = NULL;
@@ -37,15 +39,20 @@ std::string GOver = "image/loss.jpg";
 std::string backgroundImg = "image/start.jpg";
 std::string winImg = "image/playwin.jpg";
 std::string choose09 = "image/number.jpg"; 
+std::string dokhoimg = "image/dokho.jpg"; 
 
 std::string winMusic = "music/win.mp3";
 std::string lossMusic = "music/loss.mp3";
-std::string playMusic = "music/playgame.mp3";
-std::string startMusic = "music/start.mp3";
+std::string playMusic = "music/playgameGODS.mp3";
+std::string startMusic = "music/startYEU.mp3";
 std::string chooseTrue = "music/choosetrue.mp3";
 std::string chooseFalse = "music/choosefalse.mp3";
 
 Image backgroundImage;
+Image dokhoImage;
+Image de;
+Image tb;
+Image kho;
 Image choosedNum;
 Image winImage;
 
@@ -176,7 +183,6 @@ void makeArrNum(int num) {
     // for(int i=0;i<arrNum.size();i++) cout<<arrNum[i]<<" ";
     // cout<<endl;
 
-
 }
 void makeArrayIcon(SDL_Renderer* renderer, vector<Icon>& arrayIcon, int level) {
     arrayIcon.clear();
@@ -291,14 +297,14 @@ void renderImagechoose(){
     SDL_RenderPresent(renderer);
 }
 
-void handleKeyPress(SDL_Keycode key, std::vector<std::string>& chosenImage, bool& chooseNum, bool& play, SDL_Renderer* renderer, std::vector<Icon>& arrayIcon, int level, std::string &special) {
+void handleKeyPress(SDL_Keycode key, std::vector<std::string>& chosenImage, bool& chooseNum, bool& play, SDL_Renderer* renderer, std::vector<Icon>& arrayIcon, int level, std::string &special,bool &dokho123) {
 
     std::vector<std::vector<std::string>> imageList = {image0, image1, image2, image3, image4, image5, image6, image7, image8, image9};
     int index = key - SDLK_0;
     chosenImage = imageList[index];
     selectSpecial(chosenImage, special);
     chooseNum = false;
-    play = true;
+    dokho123 = true;
     makeArrNum((level + 1) * (level + 1)); 
     makeArrayIcon(renderer, arrayIcon, level);
 
@@ -318,6 +324,9 @@ void handleGameRunningEvent(SDL_Event& event, std::vector<Icon>& arrayIcon, std:
             if (SDL_PointInRect(&mousePoint, &mouseRec)) {
                 if (i.getImage() == special) {
                    if (arrayIcon.size() == 1) {
+                        choosed(renderer, i.getImage(), i.getPos()[0], i.getPos()[1], i.getHei());
+                        SDL_RenderPresent(renderer);
+                        SDL_Delay(200);
                         arrayIcon.erase(remove(arrayIcon.begin(), arrayIcon.end(), i), arrayIcon.end());
                     }
                     if (arrayIcon.empty()) { 
@@ -332,18 +341,20 @@ void handleGameRunningEvent(SDL_Event& event, std::vector<Icon>& arrayIcon, std:
                             arrayIcon.clear();
                             makeArrNum((level + 1) * (level + 1)); 
                             makeArrayIcon(renderer, arrayIcon, level);
-                            timeClick = static_cast<int>(((level + 1) * (level + 1 ) +1)/2);
+                            timeClick = static_cast<int>(((level + 1) * (level + 1 ) +1)/2) - clickDiff;
                         }
-                    }else{
+                    }
+                    else{
                         arrayIconChoosed.push_back(i);
                     }
+
                     if (arrayIconChoosed.size() == 2) {
                         timeClick--;
                         choosed(renderer, i.getImage(), i.getPos()[0], i.getPos()[1], i.getHei());
                         SDL_RenderPresent(renderer);
                         SDL_Delay(200);
                         arrayIconChoosed.clear();
-                        }
+                    }
                 } else {
                     handleNormalIconClick(arrayIcon, arrayIconChoosed, timeClick, renderer);
                 }
@@ -363,7 +374,7 @@ void handleGameRunningEvent(SDL_Event& event, std::vector<Icon>& arrayIcon, std:
             arrayIcon.clear();
             makeArrNum((level + 1) * (level + 1)); 
             makeArrayIcon(renderer, arrayIcon, level);
-            timeClick = static_cast<int>(((level + 1) * (level + 1 ) +1)/2);
+            timeClick = static_cast<int>(((level + 1) * (level + 1 ) +1)/2) - clickDiff;
         }
     }
     if(!win){
@@ -461,7 +472,7 @@ void handleNormalIconClick(std::vector<Icon>& arrayIcon, std::vector<Icon>& arra
                             arrayIcon.clear();
                             makeArrNum((level + 1) * (level + 1)); 
                             makeArrayIcon(renderer, arrayIcon, level);
-                            timeClick = static_cast<int>(((level + 1) * (level + 1 ) +1)/2);
+                            timeClick = static_cast<int>(((level + 1) * (level + 1 ) +1)/2) - clickDiff;
                         }
                     }
                 } else {
@@ -621,4 +632,49 @@ void selectSpecial(std::vector<std::string>& image, std::string& special){
     int randomIndex = std::rand() % image.size();
     special = image[randomIndex];
     image.erase(image.begin() + randomIndex);
+}
+void renderdokho(){
+    dokhoImage.loadTexture(dokhoimg,renderer);
+    dokhoImage.render(0,0,renderer);
+    int x = wigWin/3;
+    int y = heiWin/4;
+    int w = x;
+    int h = heiWin/6;
+    int space = 30;
+    de.loadTexture("image/de.jpg",renderer);
+    de.renderIndex(x,y,w,h,renderer);
+    tb.loadTexture("image/tb.jpg",renderer);
+    tb.renderIndex(x,y+h+space,w,h,renderer);
+    kho.loadTexture("image/kho.jpg",renderer);
+    kho.renderIndex(x,y+2*h + 2*space,w,h,renderer);
+    SDL_RenderPresent(renderer);
+}
+
+void handleDiffClick(SDL_Event e, bool &dokho123, bool &play, int &levelWin, int &clickDiff) {
+    int mouseX, mouseY;
+    SDL_GetMouseState(&mouseX, &mouseY);
+
+    int x = wigWin / 3;
+    int y = heiWin / 4;
+    int w = x;
+    int h = heiWin / 6;
+    int space = 30;
+
+    if (mouseX >= x && mouseX <= x + w) {
+        if (mouseY >= y && mouseY <= y + h) {
+            levelWin = 4; // Easy level
+            clickDiff = 0;
+        } else if (mouseY >= y + h + space && mouseY <= y + h + space + h) {
+            levelWin = 5; // Medium level
+            clickDiff = 1;
+        } else if (mouseY >= y + 2 * h + 2 * space && mouseY <= y + 3 * h + 2 * space ) {
+            levelWin = 6; // Hard level
+            clickDiff = 1;
+        } else {
+            return; // Click outside any buttons
+        }
+
+        play = true;
+        dokho123 = false;
+    }
 }
