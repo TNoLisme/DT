@@ -28,6 +28,7 @@ extern bool isPlayingMusicGame;
 extern bool isPlayingGameOver;
 extern bool win;
 extern bool isWin;
+extern bool dokho123;
 
 extern int wigWin;
 extern int heiWin;
@@ -38,6 +39,7 @@ extern int borderSpace;
 extern int iconSpace;
 extern int fps;
 extern int timeClick;
+extern int clickDiff;
 extern SDL_Window* window;
 extern SDL_Renderer* renderer;
 extern SDL_Texture* texture;
@@ -61,10 +63,15 @@ extern std::string playMusic;
 extern std::string startMusic;
 extern std::string chooseTrue;
 extern std::string chooseFalse; 
+extern std::string dokhoimg; 
 
 extern Image backgroundImage;
 extern Image choosedNum;
 extern Image winImage;
+extern Image dokhoImage;
+extern Image de;
+extern Image tb;
+extern Image kho;
 
 extern std::vector<std::string> image;
 extern std::vector<std::string> image0;
@@ -107,7 +114,7 @@ void playSound(const std::string& soundFile, int repeatCount);
 void handleStartButtonClick(SDL_Event event, bool &start, bool &choosenum) ;
 void renderStart();
 void renderImagechoose();
-void handleKeyPress(SDL_Keycode key, std::vector<std::string>& chosenImage, bool& chooseNum, bool& play, SDL_Renderer* renderer, std::vector<Icon>& arrayIcon, int level, std::string &special);
+void handleKeyPress(SDL_Keycode key, std::vector<std::string>& chosenImage, bool& chooseNum, bool& play, SDL_Renderer* renderer, std::vector<Icon>& arrayIcon, int level, std::string &special,bool &dokho);
 void handleNormalIconClick(std::vector<Icon>& arrayIcon, std::vector<Icon>& arrayIconChoosed, int& timeClick, SDL_Renderer* renderer);
 void handleGameRunningEvent(SDL_Event& event, std::vector<Icon>& arrayIcon, std::vector<Icon>& arrayIconChoosed, int& timeClick, int& level, int& score, SDL_Renderer* renderer, bool& gameOver, bool& win);
 void handleRestartLoss(int& level, int& score, int& timeClick, std::vector<Icon>& arrayIcon, std::vector<Icon>& arrayIconChoosed, SDL_Renderer* renderer, bool& gameOver);
@@ -116,5 +123,7 @@ void drawIcon(SDL_Renderer* renderer);
 void renderScore(int score, SDL_Renderer* renderer);
 void renderWin();
 void selectSpecial(std::vector<std::string>& image, std::string& special);
+void renderdokho();
+void handleDiffClick(SDL_Event e, bool &dokho123, bool &play, int &levelWin, int &clickDiff);
 
 #endif
