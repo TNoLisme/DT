@@ -2,6 +2,9 @@
 # TNoL
 # DT MEMORY
 # MỤC LỤC
+* Cách tải game:
+  - Bước 1: Truy cập: https://github.com/TNoLisme/DT , chọn Code => Download ZIP
+  - Bước 2: Mở và chạy file main.exe
 * 1  Giới thiệu về DT MEMORY
   - Thể loại: Game trí nhớ
   - DT MEMORY là game đơn giản giúp người chơi rèn luyện khả năng ghi nhớ nhanh, đặc biệt là đối với những hình ảnh mới
